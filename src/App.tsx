@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import { MainLayout } from '@/components/layouts';
 import HomePage from '@/modules/home/pages/HomePage';
+import AdminPages from './modules/admin/pages/AdminPages';
+import LoginPages from './modules/Auth/pages/LoginPages';
 
 function App() {
   const router = createBrowserRouter([
@@ -19,6 +21,21 @@ function App() {
           path: 'about',
           element: <h1>About</h1>,
         },
+        {
+          path: 'admin',
+          element: <AdminPages />,
+          children: [
+            {
+              path: 'login',
+              element: <LoginPages />
+            },
+            {
+              path: 'signup',
+              element: <LoginPages />
+            }
+          ]
+        },
+
       ],
     },
   ]);
