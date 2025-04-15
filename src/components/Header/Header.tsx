@@ -40,7 +40,7 @@ export default function Header() {
       <div className="flex justify-around items-center w-full">
         <div className="flex items-center">
           <img
-            src="../../public/images/logo-nhahang.png"
+            src="/public/logo-cnpm-preview.png"
             alt="Logo"
             className="w-32 h-auto object-contain"
           />

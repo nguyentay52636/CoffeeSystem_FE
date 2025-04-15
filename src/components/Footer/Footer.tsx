@@ -10,7 +10,7 @@ function Footer() {
             <CardTitle className="text-2xl font-bold text-gray-800">
               <div className="flex items-center">
                 <img
-                   src="../../public/images/logo-nhahang.png" alt="Logo"
+                  src="/public/logo-cnpm-preview.png" alt="Logo"
                   className="w-32 h-auto object-contain"
                 />
               </div>

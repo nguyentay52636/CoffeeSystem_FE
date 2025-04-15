@@ -1,33 +1,36 @@
 import * as React from "react"
-import { ChevronsUpDown, Plus } from "lucide-react"
+import { ChevronsUpDown, Plus, Coffee, ChevronLeft, PanelLeftClose } from "lucide-react"
 
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
+
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
+
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { cn } from "@/lib/utils"
 
-export function TeamSwitcher({
-  teams,
-}: {
-  teams: {
-    name: string
-    logo: React.ElementType
-    plan: string
-  }[]
-}) {
-  const { isMobile } = useSidebar()
+// Sample teams data
+const teams = [
+  {
+    name: "SGU COFFEE",
+    logo: "/logo-cnpm-preview.png",
+  },
+]
+
+export function TeamSwitcher() {
+
+
   const [activeTeam, setActiveTeam] = React.useState(teams[0])
+  const { open } = useSidebar()
 
   if (!activeTeam) {
     return null
@@ -40,48 +43,23 @@ export function TeamSwitcher({
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              className="data-[state=open]:bg-sidebar-accent items-center gap-2 data-[state=open]:text-sidebar-accent-foreground py-10"
             >
-              <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                <activeTeam.logo className="size-4" />
+              <div className="z-1 text-sidebar-primary-foreground flex aspect-square size-16 items-center justify-center rounded-lg">
+                <img alt="SGU Logo" className="size-18" src={activeTeam.logo} />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{activeTeam.name}</span>
-                <span className="truncate text-xs">{activeTeam.plan}</span>
+                <span className="truncate font-bold text-xl text-black">{activeTeam.name}</span>
               </div>
-              <ChevronsUpDown className="ml-auto" />
+              <SidebarTrigger >
+                <PanelLeftClose className={cn("size-8 font-medium bg-white rounded-full", {
+                  "rotate-180": !open
+                })} />
+              </SidebarTrigger>
+
             </SidebarMenuButton>
           </DropdownMenuTrigger>
-          <DropdownMenuContent
-            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-            align="start"
-            side={isMobile ? "bottom" : "right"}
-            sideOffset={4}
-          >
-            <DropdownMenuLabel className="text-muted-foreground text-xs">
-              Teams
-            </DropdownMenuLabel>
-            {teams.map((team, index) => (
-              <DropdownMenuItem
-                key={team.name}
-                onClick={() => setActiveTeam(team)}
-                className="gap-2 p-2"
-              >
-                <div className="flex size-6 items-center justify-center rounded-md border">
-                  <team.logo className="size-3.5 shrink-0" />
-                </div>
-                {team.name}
-                <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
-              </DropdownMenuItem>
-            ))}
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="gap-2 p-2">
-              <div className="flex size-6 items-center justify-center rounded-md border bg-transparent">
-                <Plus className="size-4" />
-              </div>
-              <div className="text-muted-foreground font-medium">Add team</div>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
+
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>

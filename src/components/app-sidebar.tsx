@@ -1,12 +1,14 @@
 import * as React from "react"
 import {
-  AudioWaveform,
-  BookOpen,
+  AudioWaveform, BookOpen,
   Bot,
-  Command,
+
+  ChevronLeft,
+
   Frame,
-  GalleryVerticalEnd,
+
   Map,
+  PanelLeftClose,
   PieChart,
   Settings2,
   SquareTerminal,
@@ -22,7 +24,10 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
+  SidebarTrigger,
+  useSidebar,
 } from "@/components/ui/sidebar"
+import { cn } from "@/lib/utils"
 
 // This is sample data.
 const data = {
@@ -31,23 +36,7 @@ const data = {
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
+
   navMain: [
     {
       title: "Playground",
@@ -155,12 +144,13 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { open } = useSidebar()
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible="icon" {...props} className="relative">
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <TeamSwitcher />
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="bg-bg-primary">
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
       </SidebarContent>
@@ -168,6 +158,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavUser user={data.user} />
       </SidebarFooter>
       <SidebarRail />
+      <SidebarTrigger className={cn("hidden absolute top-[27px] -right-9 z-10 p-2 cursor-pointer", {
+        "block rotate-180": !open,
+      })}>
+        <PanelLeftClose className="size-8 z-2 cursor-pointer" />
+      </SidebarTrigger>
     </Sidebar>
   )
 }
