@@ -134,11 +134,11 @@ export function LoginUI({
                     </Label>
                   </div>
                   <div className="flex items-center justify-end gap-2">
-                    <a href="#"
+                    <Link to="/auth/forget-password"
                       className="text-sm text-blue-600 hover:underline"
                     >
                       Quên Mật Khẩu?
-                    </a>
+                    </Link>
                   </div>
                 </div>
 

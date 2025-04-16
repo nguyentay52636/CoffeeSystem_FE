@@ -8,6 +8,9 @@ import HomePages from '@/modules/home/pages/HomePages';
 import AuthPages from './modules/auth/pages/AuthPages';
 import { RegisterForm } from './modules/auth/components/Register/RegisterForm';
 import LoginForm from './modules/auth/components/Login/LoginForm';
+import { ForgetPasswordForm } from './modules/auth/components/ForgetPassword/ForgetPasswordForm';
+import ComfirmPassword from './modules/auth/components/ForgetPassword/ComfirmPassword';
+import { SetNewPasswordForm } from './modules/auth/components/ForgetPassword/SetNewPasswordForm';
 
 function App() {
   const router = createBrowserRouter([
@@ -39,6 +42,18 @@ function App() {
         {
           path: 'register',
           element: <RegisterForm />
+        },
+        {
+          path: 'forget-password',
+          element: <ForgetPasswordForm />
+        },
+        {
+          path: 'confirm-password',
+          element: <ComfirmPassword />
+        },
+        {
+          path: 'new-password',
+          element: <SetNewPasswordForm />
         }
       ]
     },
