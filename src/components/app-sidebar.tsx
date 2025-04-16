@@ -5,6 +5,8 @@ import {
 
   ChevronLeft,
 
+  ChevronsRight,
+
   Frame,
 
   Map,
@@ -12,6 +14,7 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
+  Calendar,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -39,7 +42,7 @@ const data = {
 
   navMain: [
     {
-      title: "Playground",
+      title: "Trang chủ",
       url: "#",
       icon: SquareTerminal,
       isActive: true,
@@ -59,7 +62,7 @@ const data = {
       ],
     },
     {
-      title: "Models",
+      title: "Giỏ hàng ",
       url: "#",
       icon: Bot,
       items: [
@@ -78,7 +81,7 @@ const data = {
       ],
     },
     {
-      title: "Documentation",
+      title: " Đặt bàn",
       url: "#",
       icon: BookOpen,
       items: [
@@ -101,7 +104,7 @@ const data = {
       ],
     },
     {
-      title: "Settings",
+      title: "Đánh giá",
       url: "#",
       icon: Settings2,
       items: [
@@ -123,6 +126,17 @@ const data = {
         },
       ],
     },
+    {
+      title: "Booking Manager",
+      url: "/admin/booking",
+      icon: Calendar,
+      items: [
+        {
+          title: "Categories",
+          url: "/admin/booking",
+        },
+      ],
+    },
   ],
   projects: [
     {
@@ -131,7 +145,7 @@ const data = {
       icon: Frame,
     },
     {
-      name: "Sales & Marketing",
+      name: "Thống kê",
       url: "#",
       icon: PieChart,
     },
@@ -146,11 +160,11 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { open } = useSidebar()
   return (
-    <Sidebar collapsible="icon" {...props} className="relative">
+    <Sidebar collapsible="icon" {...props} className="relative bg-secondary!">
       <SidebarHeader>
         <TeamSwitcher />
       </SidebarHeader>
-      <SidebarContent className="bg-bg-primary">
+      <SidebarContent className="bg-bg-secondary!">
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
       </SidebarContent>
@@ -158,10 +172,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavUser user={data.user} />
       </SidebarFooter>
       <SidebarRail />
-      <SidebarTrigger className={cn("hidden absolute top-[27px] -right-9 z-10 p-2 cursor-pointer", {
-        "block rotate-180": !open,
+      <SidebarTrigger className={cn("hidden absolute top-[12px] -right-9 z-10 p-2 cursor-pointer", {
+        "block rotate-360": !open,
       })}>
-        <PanelLeftClose className="size-8 z-2 cursor-pointer" />
+        <ChevronsRight className="size-8 z-2 cursor-pointer bg-[#FCF7EF]  rounded-sm p-1 " />
       </SidebarTrigger>
     </Sidebar>
   )

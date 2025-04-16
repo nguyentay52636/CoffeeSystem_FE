@@ -4,7 +4,7 @@ import { MainLayout } from '@/components/layouts';
 import HomePage from '@/modules/home/pages/HomePage';
 import AdminPages from './modules/admin/pages/AdminPages';
 import LoginPages from './modules/Auth/pages/LoginPages';
-import { Button } from './components/ui/button';
+import BookingManager from './modules/home/components/BookATable/BookingManager';
 
 function App() {
   const router = createBrowserRouter([
@@ -30,17 +30,19 @@ function App() {
               path: 'login',
               element: <LoginPages />
             },
-
+            {
+              path: 'booking',
+              element: <BookingManager />
+            },
           ]
         },
-
       ],
     },
   ]);
   return (
     <>
       <RouterProvider router={router} />
-     
+
     </>
   );
 }

@@ -337,7 +337,7 @@ function SidebarInput({
 function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
   const { open, isMobile } = useSidebar()
   return (
-    <div className="mt-2 bg-[#FCF7EF] ">
+    <div className="mt-2 bg-bg-secondary! ">
       <div
         data-slot="sidebar-header"
         data-sidebar="header"
@@ -345,22 +345,24 @@ function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
         {...props}
       />
 
-      {
-        open && (
-          <Avatar className="text-center mx-4 flex flex-col items-center">
-            <div className="my-2">
-              <AvatarImage className="h-24 w-24 text-center rounded-full " src="https://github.com/shadcn.png" />
-            </div>
-            <div className="text-center my-2">
-              <h1 className="text-lg font-bold text-center">David wesley</h1>
-              <p className="text-sm text-gray-600 text-center">david@gmail.com</p>
-            </div>
-
-          </Avatar>
-        )
-
-      }
-    </div >
+      {open ? (
+        <Avatar className="text-center mx-4 flex flex-col items-center">
+          <div className="my-2">
+            <AvatarImage className="h-24 w-24 text-center rounded-full " src="https://github.com/shadcn.png" />
+          </div>
+          <div className="text-center my-2">
+            <h1 className="text-lg font-bold text-center">David wesley</h1>
+            <p className="text-sm text-gray-600 text-center">david@gmail.com</p>
+          </div>
+        </Avatar>
+      ) : (
+        <Avatar className="text-center mx-1 flex items-center">
+          <div className="my-2">
+            <AvatarImage className="h-10 w-14 text-center rounded-full " src="https://github.com/shadcn.png" />
+          </div>
+        </Avatar>
+      )}
+    </div>
   )
 }
 

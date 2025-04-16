@@ -111,7 +111,8 @@
 }
 
 @theme {
-  --color-bg-primary: #FCF7EF;
+  --color-bg-primary: #A27B5C;
+  --color-bg-secondary: #FCF7EF;
 }
 
 @layer base {

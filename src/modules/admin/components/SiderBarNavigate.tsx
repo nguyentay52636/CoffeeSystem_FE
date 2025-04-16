@@ -12,8 +12,7 @@ export default function SiderBarNavigate({ children }: { children: React.ReactNo
                 <AppSidebar />
                 <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
                     {isMobile && (
-                        <SidebarTrigger  className='md:hidden' onClick={() => setOpen(true)}>
-
+                        <SidebarTrigger className='md:hidden' onClick={() => setOpen(true)}>
                         </SidebarTrigger>
                     )}
                     {children}
