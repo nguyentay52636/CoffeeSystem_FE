@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Login from "./Login";
-import Register from "./Register";
+
 import classNames from "classnames";
 import WelcomeSection from "./UI/WelcomeSection";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
