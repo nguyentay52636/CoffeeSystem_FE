@@ -1,10 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import { MainLayout } from '@/components/layouts';
-import HomePage from '@/modules/home/pages/HomePage';
 import AdminPages from './modules/admin/pages/AdminPages';
-import LoginPages from './modules/Auth/pages/LoginPages';
+import LoginPages from './modules/auth/pages/AuthPages';
 import BookingManager from './modules/home/components/BookATable/BookingManager';
+import HomePages from '@/modules/home/pages/HomePages';
+import AuthPages from './modules/auth/pages/AuthPages';
 
 function App() {
   const router = createBrowserRouter([
@@ -16,33 +17,40 @@ function App() {
         // Home page
         {
           index: true,
-          element: <HomePage />,
+          element: <HomePages />,
         },
         {
           path: 'about',
           element: <h1>About</h1>,
         },
-        {
-          path: 'admin',
-          element: <AdminPages />,
-          children: [
-            {
-              path: 'login',
-              element: <LoginPages />
-            },
-            {
-              path: 'booking',
-              element: <BookingManager />
-            },
-          ]
-        },
+
       ],
+    },
+    {
+      path: 'auth',
+      element: <AuthPages />,
+      children: [
+        {
+          path: 'login',
+          element: <LoginPages />
+        }
+      ]
+    },
+    // Admin layout
+    {
+      path: 'admin',
+      element: <AdminPages />,
+      children: [
+        {
+          path: 'booking',
+          element: <BookingManager />
+        },
+      ]
     },
   ]);
   return (
     <>
       <RouterProvider router={router} />
-
     </>
   );
 }
