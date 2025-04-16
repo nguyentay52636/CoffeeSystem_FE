@@ -2,10 +2,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import { MainLayout } from '@/components/layouts';
 import AdminPages from './modules/admin/pages/AdminPages';
-import LoginPages from './modules/auth/pages/AuthPages';
+
 import BookingManager from './modules/home/components/BookATable/BookingManager';
 import HomePages from '@/modules/home/pages/HomePages';
 import AuthPages from './modules/auth/pages/AuthPages';
+import { RegisterForm } from './modules/auth/components/Register/RegisterForm';
+import LoginForm from './modules/auth/components/Login/LoginForm';
 
 function App() {
   const router = createBrowserRouter([
@@ -32,7 +34,11 @@ function App() {
       children: [
         {
           path: 'login',
-          element: <LoginPages />
+          element: <LoginForm />
+        },
+        {
+          path: 'register',
+          element: <RegisterForm />
         }
       ]
     },

@@ -1,11 +1,9 @@
-
-
 import { PropsWithChildren } from 'react';
-import { LoginForm } from '@/components/login-form';
+import { Outlet } from 'react-router-dom';
 export default function AuthPages({ children }: PropsWithChildren) {
     return (
-        <div >
-            <LoginForm />
-        </div>
+        <>
+            {children || <Outlet />}
+        </>
     )
 }
