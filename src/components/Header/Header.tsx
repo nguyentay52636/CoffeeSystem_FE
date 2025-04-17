@@ -4,32 +4,32 @@ import { NavigationMenu, NavigationMenuList, NavigationMenuLink } from "@/compon
 
 export default function Header() {
   return (
-    <header className="flex h-24 w-full shrink-0 items-center px-4 md:px-6 bg-gradient-to-r from-gray-100 to-gray-300 shadow-md">
+    <header className="flex h-24 w-full shrink-0 items-center px-4 md:px-6 bg-[#F5E8D3] shadow-md">
       <Sheet>
         <SheetTrigger asChild>
           <Button
             variant="outline"
             size="icon"
-            className="lg:hidden bg-white hover:bg-gray-50 border-gray-300 rounded-full shadow-sm transition-all duration-200"
+            className="lg:hidden bg-white hover:bg-[#EAD9C2] border-[#A27B5C] rounded-full shadow-sm transition-all duration-200"
           >
-            <MenuIcon className="h-6 w-6 text-gray-700" />
+            <MenuIcon className="h-6 w-6 text-[#5A3E2B]" />
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-[300px] bg-white p-6 shadow-lg">
+        <SheetContent side="left" className="w-[300px] bg-[#EAD9C2] p-6 shadow-lg">
           <div className="mb-8 flex justify-center">
             <img
-              src="" alt="Logo"
-
+              src="/public/logo-cnpm-preview.png"
+              alt="Logo"
               className="w-32 h-auto object-contain"
             />
           </div>
           <div className="grid gap-4">
-            {["Home", "About", "Services", "Portfolio", "Contact"].map((item) => (
+            {["Trang Chủ", "Sản phẩm", "Giới thiệu", "Portfolio", "Contact"].map((item) => (
               <a
                 key={item}
                 href="#"
-                className="flex items-center py-3 px-4 text-lg font-medium text-gray-800 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition-all duration-200"
+                className="flex items-center py-3 px-4 text-lg font-medium text-[#5A3E2B] hover:bg-[#D9C6A5] hover:text-[#4A3223] rounded-lg transition-all duration-200"
               >
                 {item}
               </a>
@@ -49,17 +49,18 @@ export default function Header() {
           <NavigationMenuList className="flex space-x-20">
             {["Trang Chủ", "Sản phẩm", "Giới thiệu", "Portfolio", "Contact"].map((item) => (
               <NavigationMenuLink key={item} asChild>
-                <div className="">
-                  <Button className="group inline-flex h-10 items-center justify-center  bg-white px-6 py-6 text-sm font-semibold text-gray-800 hover:bg-gray-100 hover:text-gray-900 shadow-md transition-all duration-200  text-[1rem]">
+                <div>
+                  <Button className="group inline-flex h-10 items-center justify-center bg-transparent px-6 py-6 text-sm font-semibold text-[#5A3E2B] hover:bg-[#EAD9C2] hover:text-[#4A3223] transition-all duration-200 text-[1rem]">
                     {item}
-                  </Button></div>
+                  </Button>
+                </div>
               </NavigationMenuLink>
             ))}
           </NavigationMenuList>
         </NavigationMenu>
         <div className="flex items-center">
           <Button
-            className=" hover:bg-blue-700 text-white font-semibold py-6 px-6 rounded-full shadow-md transition-all duration-200 cursor-pointer"
+            className="bg-[#5A3E2B] hover:bg-[#4A3223] text-white font-semibold py-4 px-6 rounded-full shadow-md transition-all duration-200 cursor-pointer"
           >
             Đăng nhập
           </Button>
@@ -89,4 +90,3 @@ function MenuIcon(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
-
