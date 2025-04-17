@@ -11,6 +11,7 @@ import LoginForm from './modules/auth/components/Login/LoginForm';
 import { ForgetPasswordForm } from './modules/auth/components/ForgetPassword/ForgetPasswordForm';
 import ComfirmPassword from './modules/auth/components/ForgetPassword/ComfirmPassword';
 import { SetNewPasswordForm } from './modules/auth/components/ForgetPassword/SetNewPasswordForm';
+import OrderManager from './modules/admin/components/Order/OrderManager';
 
 function App() {
   const router = createBrowserRouter([
@@ -65,6 +66,10 @@ function App() {
         {
           path: 'booking',
           element: <BookingManager />
+        },
+        {
+          path: 'order',
+          element: <OrderManager />
         },
       ]
     },
