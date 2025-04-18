@@ -1,10 +1,63 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
+import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-
+import { MoreVertical, Funnel } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Product, dataProducts } from './DataProducts';
 
 export default function BookingTable() {
-    
+    const [products, setProducts] = useState<Product[]>(dataProducts);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [editProduct, setEditProduct] = useState<Product | null>(null);
+    const [isAddOpen, setIsAddOpen] = useState(false);
+    const [newProduct, setNewProduct] = useState({
+        name: '',
+        category: 'Coffee and Beverage',
+        price: 0,
+        stock: 0,
+        status: true,
+        image: ''
+    });
+
+    const rowsPerPage = 10;
+
+    const filteredProducts = useMemo(() => {
+        return products.filter((product) =>
+            product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    }, [products, searchTerm]);
+
+    const totalPages = Math.ceil(filteredProducts.length / rowsPerPage);
+    const paginatedProducts = filteredProducts.slice(
+        (currentPage - 1) * rowsPerPage,
+        currentPage * rowsPerPage
+    );
+    // Handlers
+    const handleStatusToggle = (id: number) => {
+        setProducts(
+            products.map((product) =>
+                product.id === id ? { ...product, status: !product.status } : product
+            )
+        );
+    };
+    const handleDelete = (id: number) => {
+        setProducts(products.filter((product) => product.id !== id));
+    };
+
+    const handleEdit = (product: Product) => {
+        setEditProduct({ ...product });
+    };
+
+    const handleSaveEdit = () => {
+        setProducts(
+            products.map((product) =>
+                product.id === editProduct?.id ? editProduct : product
+            )
+        );
+        setEditProduct(null);
+    };
     return (
         <Table>
             <TableHeader>
