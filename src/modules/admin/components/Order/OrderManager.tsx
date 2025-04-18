@@ -1,23 +1,36 @@
-import React, { useState, useMemo } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { MoreVertical } from 'lucide-react';
+import React, { useState, useMemo } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ArrowDownToLine, MoreVertical } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Checkbox } from '@/components/ui/checkbox';
+} from "@/components/ui/dropdown-menu";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 
 // Interfaces based on the database schema
 interface Product {
@@ -31,8 +44,8 @@ interface OrderItem {
   order_id: number;
   product_id: number;
   quantity: number;
-  price: number; // Price at the time of order
-  product: Product; // Joined product data
+  price: number;
+  product: Product;
 }
 
 interface User {
@@ -44,150 +57,229 @@ interface User {
 interface Order {
   id: number;
   user_id: number;
-  status: 'New Order' | 'Processed' | 'Canceled';
+  status: "New Order" | "Processed" | "Canceled";
   created_at: string;
   user: User;
   order_items: OrderItem[];
 }
 
 export default function OrderManager() {
-  // Sample data (in a real app, this would come from an API)
+  // Sample data
   const [orders, setOrders] = useState<Order[]>([
     {
       id: 1001,
       user_id: 1,
-      status: 'New Order',
-      created_at: '2023-04-29',
-      user: { id: 1, full_name: 'Devon Lane', address: '3517 W. Gray St. Utica, Pennsylvania 57867' },
+      status: "New Order",
+      created_at: "2023-04-29",
+      user: {
+        id: 1,
+        full_name: "Devon Lane",
+        address: "3517 W. Gray St. Utica, Pennsylvania 57867",
+      },
       order_items: [
         {
           order_id: 1001,
           product_id: 1,
           quantity: 1,
           price: 293,
-          product: { id: 1, name: 'RISTRETTO BIANCO', description: 'A strong coffee', price: 293 },
+          product: {
+            id: 1,
+            name: "RISTRETTO BIANCO",
+            description: "A strong coffee",
+            price: 293,
+          },
         },
       ],
     },
     {
       id: 1002,
       user_id: 2,
-      status: 'New Order',
-      created_at: '2023-04-29',
-      user: { id: 2, full_name: 'Arlene McCoy', address: '2972 Westheimer Rd. Santa Ana, Illinois 85486' },
+      status: "New Order",
+      created_at: "2023-04-29",
+      user: {
+        id: 2,
+        full_name: "Arlene McCoy",
+        address: "2972 Westheimer Rd. Santa Ana, Illinois 85486",
+      },
       order_items: [
         {
           order_id: 1002,
           product_id: 1,
           quantity: 2,
           price: 293,
-          product: { id: 1, name: 'RISTRETTO BIANCO', description: 'A strong coffee', price: 293 },
+          product: {
+            id: 1,
+            name: "RISTRETTO BIANCO",
+            description: "A strong coffee",
+            price: 293,
+          },
         },
         {
           order_id: 1002,
           product_id: 2,
           quantity: 3,
           price: 188,
-          product: { id: 2, name: 'ICED CREAMY LATTE', description: 'A refreshing latte', price: 188 },
+          product: {
+            id: 2,
+            name: "ICED CREAMY LATTE",
+            description: "A refreshing latte",
+            price: 188,
+          },
         },
       ],
     },
     {
       id: 1003,
       user_id: 3,
-      status: 'New Order',
-      created_at: '2023-04-29',
-      user: { id: 3, full_name: 'Leslie Alexander', address: '2715 Ash Dr. San Jose, South Dakota 83475' },
+      status: "New Order",
+      created_at: "2023-04-29",
+      user: {
+        id: 3,
+        full_name: "Leslie Alexander",
+        address: "2715 Ash Dr. San Jose, South Dakota 83475",
+      },
       order_items: [
         {
           order_id: 1003,
           product_id: 1,
           quantity: 2,
           price: 293,
-          product: { id: 1, name: 'RISTRETTO BIANCO', description: 'A strong coffee', price: 293 },
+          product: {
+            id: 1,
+            name: "RISTRETTO BIANCO",
+            description: "A strong coffee",
+            price: 293,
+          },
         },
         {
           order_id: 1003,
           product_id: 3,
           quantity: 2,
           price: 100,
-          product: { id: 3, name: 'CAPPUCINO', description: 'A classic cappuccino', price: 100 },
+          product: {
+            id: 3,
+            name: "CAPPUCINO",
+            description: "A classic cappuccino",
+            price: 100,
+          },
         },
       ],
     },
     {
       id: 1004,
       user_id: 4,
-      status: 'Processed',
-      created_at: '2023-04-29',
-      user: { id: 4, full_name: 'Savannah Nguyen', address: '3517 W. Gray St. Utica, Pennsylvania 57867' },
+      status: "Processed",
+      created_at: "2023-04-29",
+      user: {
+        id: 4,
+        full_name: "Savannah Nguyen",
+        address: "3517 W. Gray St. Utica, Pennsylvania 57867",
+      },
       order_items: [
         {
           order_id: 1004,
           product_id: 1,
           quantity: 1,
           price: 293,
-          product: { id: 1, name: 'RISTRETTO BIANCO', description: 'A strong coffee', price: 293 },
+          product: {
+            id: 1,
+            name: "RISTRETTO BIANCO",
+            description: "A strong coffee",
+            price: 293,
+          },
         },
         {
           order_id: 1004,
           product_id: 2,
           quantity: 2,
           price: 188,
-          product: { id: 2, name: 'ICED CREAMY LATTE', description: 'A refreshing latte', price: 188 },
+          product: {
+            id: 2,
+            name: "ICED CREAMY LATTE",
+            description: "A refreshing latte",
+            price: 188,
+          },
         },
       ],
     },
     {
       id: 1005,
       user_id: 5,
-      status: 'Processed',
-      created_at: '2023-04-29',
-      user: { id: 5, full_name: 'Courtney Henry', address: '4140 Parker Rd. Allentown, New Mexico 31134' },
+      status: "Processed",
+      created_at: "2023-04-29",
+      user: {
+        id: 5,
+        full_name: "Courtney Henry",
+        address: "4140 Parker Rd. Allentown, New Mexico 31134",
+      },
       order_items: [
         {
           order_id: 1005,
           product_id: 1,
           quantity: 1,
           price: 293,
-          product: { id: 1, name: 'RISTRETTO BIANCO', description: 'A strong coffee', price: 293 },
+          product: {
+            id: 1,
+            name: "RISTRETTO BIANCO",
+            description: "A strong coffee",
+            price: 293,
+          },
         },
         {
           order_id: 1005,
           product_id: 3,
           quantity: 2,
           price: 100,
-          product: { id: 3, name: 'CAPPUCINO', description: 'A classic cappuccino', price: 100 },
+          product: {
+            id: 3,
+            name: "CAPPUCINO",
+            description: "A classic cappuccino",
+            price: 100,
+          },
         },
       ],
     },
     {
       id: 1006,
       user_id: 6,
-      status: 'Canceled',
-      created_at: '2023-04-29',
-      user: { id: 6, full_name: 'Darrell Steward', address: '1901 Thornridge Cir.' },
+      status: "Canceled",
+      created_at: "2023-04-29",
+      user: {
+        id: 6,
+        full_name: "Darrell Steward",
+        address: "1901 Thornridge Cir.",
+      },
       order_items: [
         {
           order_id: 1006,
           product_id: 1,
           quantity: 1,
           price: 293,
-          product: { id: 1, name: 'RISTRETTO BIANCO', description: 'A strong coffee', price: 293 },
+          product: {
+            id: 1,
+            name: "RISTRETTO BIANCO",
+            description: "A strong coffee",
+            price: 293,
+          },
         },
         {
           order_id: 1006,
           product_id: 2,
           quantity: 1,
           price: 489,
-          product: { id: 2, name: 'ICED CREAMY LATTE', description: 'A refreshing latte', price: 489 },
+          product: {
+            id: 2,
+            name: "ICED CREAMY LATTE",
+            description: "A refreshing latte",
+            price: 489,
+          },
         },
       ],
     },
   ]);
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('ALL');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("ALL");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const rowsPerPage = 5;
@@ -203,7 +295,7 @@ export default function OrderManager() {
       const matchesSearch =
         order.user.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         order.id.toString().includes(searchTerm);
-      const matchesStatus = statusFilter === 'ALL' || order.status === statusFilter;
+      const matchesStatus = statusFilter === "ALL" || order.status === statusFilter;
       return matchesSearch && matchesStatus;
     });
   }, [orders, searchTerm, statusFilter]);
@@ -240,10 +332,10 @@ export default function OrderManager() {
             placeholder="Search"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="flex-1 border-gray-300 focus:border-blue-500 transition-colors"
+            className="flex-1"
           />
           <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-[180px] border-gray-300 focus:border-blue-500">
+            <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Status" />
             </SelectTrigger>
             <SelectContent>
@@ -256,14 +348,24 @@ export default function OrderManager() {
           <Input
             type="text"
             placeholder="10 Apr - 20 Apr"
-            className="w-[180px] border-gray-300 focus:border-blue-500 transition-colors"
+            className="w-[180px]"
             disabled
           />
-          <Button
-            variant="outline"
-            className="flex items-center border-gray-300 text-gray-600 hover:border-blue-500"
-          >
-            Export
+          <Button className="bg-[#3F4E4F] hover:bg-gray-600 text-white flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M20.53 8.47L14.53 2.47C14.389 2.329 14.199 2.25 14 2.25H8C5.582 2.25 4.25 3.582 4.25 6V18C4.25 20.418 5.582 21.75 8 21.75H17C19.418 21.75 20.75 20.418 20.75 18V9C20.75 8.801 20.671 8.61 20.53 8.47ZM14.75 4.811L18.189 8.25H17C15.423 8.25 14.75 7.577 14.75 6V4.811ZM17 20.25H8C6.423 20.25 5.75 19.577 5.75 18V6C5.75 4.423 6.423 3.75 8 3.75H13.25V6C13.25 8.418 14.582 9.75 17 9.75H19.25V18C19.25 19.577 18.577 20.25 17 20.25ZM13.53 14.47C13.823 14.763 13.823 15.238 13.53 15.531L11.53 17.531C11.461 17.6 11.3779 17.655 11.2859 17.693C11.1939 17.731 11.097 17.751 10.999 17.751C10.901 17.751 10.8039 17.731 10.7119 17.693C10.6199 17.655 10.537 17.6 10.468 17.531L8.46802 15.531C8.17502 15.238 8.17502 14.763 8.46802 14.47C8.76102 14.177 9.23605 14.177 9.52905 14.47L10.249 15.19V12C10.249 11.586 10.585 11.25 10.999 11.25C11.413 11.25 11.749 11.586 11.749 12V15.189L12.469 14.469C12.763 14.177 13.237 14.177 13.53 14.47Z"
+                fill="white"
+              />
+            </svg>
+            Xuất hoá đơn
+            <ArrowDownToLine />
           </Button>
         </div>
       </div>
@@ -276,12 +378,12 @@ export default function OrderManager() {
               <TableHead className="w-[50px]">
                 <Checkbox />
               </TableHead>
-              <TableHead>Order ID</TableHead>
-              <TableHead>Customer</TableHead>
-              <TableHead>Items</TableHead>
-              <TableHead>Amount</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="w-[50px]">Action</TableHead>
+              <TableHead>Mã hoá đơn</TableHead>
+              <TableHead>Khách hàng</TableHead>
+              <TableHead>Sản phẩm</TableHead>
+              <TableHead>Giá</TableHead>
+              <TableHead>Trạng thái</TableHead>
+              <TableHead className="w-[50px]">Thao tác</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -292,32 +394,32 @@ export default function OrderManager() {
                 </TableCell>
                 <TableCell>
                   <div>#00{order.id}</div>
-                  <div className="text-sm text-gray-500">
-                    {new Date(order.created_at).toLocaleDateString('en-US', {
-                      month: 'long',
-                      day: 'numeric',
-                      year: 'numeric',
+                  <div className="text-sm text-muted-foreground">
+                    {new Date(order.created_at).toLocaleDateString("en-US", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
                     })}
                   </div>
                 </TableCell>
                 <TableCell>
                   <div>{order.user.full_name}</div>
-                  <div className="text-sm text-gray-500">{order.user.address}</div>
+                  <div className="text-sm text-muted-foreground">{order.user.address}</div>
                 </TableCell>
                 <TableCell>{order.order_items.length}</TableCell>
                 <TableCell>${calculateTotalAmount(order.order_items)}</TableCell>
                 <TableCell>
-                  <span
-                    className={`px-2 py-1 rounded text-sm ${
-                      order.status === 'New Order'
-                        ? 'bg-gray-200 text-gray-800'
-                        : order.status === 'Processed'
-                        ? 'bg-yellow-100 text-yellow-800'
-                        : 'bg-red-100 text-red-800'
-                    }`}
+                  <Badge
+                    variant={
+                      order.status === "New Order"
+                        ? "default"
+                        : order.status === "Processed"
+                          ? "secondary"
+                          : "destructive"
+                    }
                   >
                     {order.status}
-                  </span>
+                  </Badge>
                 </TableCell>
                 <TableCell>
                   <DropdownMenu>
@@ -328,10 +430,10 @@ export default function OrderManager() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                       <DropdownMenuItem onClick={() => handleViewDetails(order)}>
-                        View Details
+                        Xem chi tiết
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => handleDelete(order.id)}>
-                        Delete
+                        Xoá yêu cầu
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -344,77 +446,124 @@ export default function OrderManager() {
 
       {/* Order Details Dialog */}
       <Dialog open={!!selectedOrder} onOpenChange={() => setSelectedOrder(null)}>
-        <DialogContent>
+        <DialogContent className="max-w-4xl p-6">
           <DialogHeader>
-            <DialogTitle>Order Details - #00{selectedOrder?.id}</DialogTitle>
+            <DialogTitle className="text-2xl font-bold">Order Details</DialogTitle>
           </DialogHeader>
           {selectedOrder && (
-            <div className="space-y-4">
-              {/* Order Summary */}
-              <div className="border-b pb-4">
-                <div className="grid grid-cols-2 gap-2">
-                  <div>
-                    <p className="text-sm text-gray-500">Customer</p>
-                    <p className="font-medium">{selectedOrder.user.full_name}</p>
-                    <p className="text-sm text-gray-500">{selectedOrder.user.address}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Order Date</p>
-                    <p className="font-medium">
-                      {new Date(selectedOrder.created_at).toLocaleDateString('en-US', {
-                        month: 'long',
-                        day: 'numeric',
-                        year: 'numeric',
-                      })}
-                    </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Left Column: Order Details and Products */}
+              <div className="md:col-span-2 space-y-6">
+                {/* Order Details */}
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <p className="text-sm text-muted-foreground">Status</p>
+                      <Badge
+                        variant={
+                          selectedOrder.status === "New Order"
+                            ? "default"
+                            : selectedOrder.status === "Processed"
+                              ? "secondary"
+                              : "destructive"
+                        }
+                      >
+                        {selectedOrder.status}
+                      </Badge>
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground">Transaction Date</p>
+                      <p className="font-medium">
+                        {new Date(selectedOrder.created_at).toLocaleDateString("en-US", {
+                          month: "long",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground">Payment Method</p>
+                      <p className="font-medium">
+                        {/* Replace with selectedOrder.payment_method if available */}
+                        Credit or Debit Card
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground">Ship Method</p>
+                      <p className="font-medium">
+                        {/* Replace with selectedOrder.ship_method if available */}
+                        Free Shipping (7-10 Days)
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <div className="mt-2">
-                  <p className="text-sm text-gray-500">Status</p>
-                  <span
-                    className={`px-2 py-1 rounded text-sm ${
-                      selectedOrder.status === 'New Order'
-                        ? 'bg-gray-200 text-gray-800'
-                        : selectedOrder.status === 'Processed'
-                        ? 'bg-yellow-100 text-yellow-800'
-                        : 'bg-red-100 text-red-800'
-                    }`}
-                  >
-                    {selectedOrder.status}
-                  </span>
+
+                {/* Product List */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">Your Order</h3>
+                  <div className="space-y-4">
+                    {selectedOrder.order_items.map((item) => (
+                      <div
+                        key={`${item.order_id}-${item.product_id}`}
+                        className="flex items-center border rounded-lg p-4"
+                      >
+                        <img
+                          src={
+                            // Replace with item.product.image_url if available
+                            "https://via.placeholder.com/80"
+                          }
+                          alt={item.product.name}
+                          className="w-20 h-20 object-cover rounded mr-4"
+                        />
+                        <div className="flex-1">
+                          <p className="font-medium">{item.product.name}</p>
+                          <p className="text-sm text-muted-foreground">
+                            {item.product.description}
+                          </p>
+                          <p className="text-sm">
+                            {item.quantity} x ${item.price.toFixed(2)}
+                          </p>
+                        </div>
+                        <p className="font-medium">
+                          ${(item.quantity * item.price).toFixed(2)}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              {/* Product List */}
-              <div>
-                <h3 className="text-lg font-semibold mb-2">Products</h3>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Product Name</TableHead>
-                      <TableHead>Description</TableHead>
-                      <TableHead>Quantity</TableHead>
-                      <TableHead>Price</TableHead>
-                      <TableHead>Total</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {selectedOrder.order_items.map((item) => (
-                      <TableRow key={`${item.order_id}-${item.product_id}`}>
-                        <TableCell>{item.product.name}</TableCell>
-                        <TableCell>{item.product.description}</TableCell>
-                        <TableCell>{item.quantity}</TableCell>
-                        <TableCell>${item.price}</TableCell>
-                        <TableCell>${item.quantity * item.price}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-                <div className="mt-4 text-right">
-                  <p className="font-semibold">
-                    Total Amount: ${calculateTotalAmount(selectedOrder.order_items)}
+              {/* Right Column: Customer Details */}
+              <div className="space-y-4 bg-muted/50 p-4 rounded-lg">
+                <h3 className="text-lg font-semibold">Customer Detail</h3>
+                <div>
+                  <p className="text-sm text-muted-foreground">Name</p>
+                  <p className="font-medium">{selectedOrder.user.full_name}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Account</p>
+                  <p className="font-medium">
+                    {/* Replace with selectedOrder.user.email if available */}
+                    {selectedOrder.user.full_name.toLowerCase().replace(" ", ".") + "@mail.com"}
                   </p>
                 </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Address</p>
+                  <p className="font-medium">{selectedOrder.user.address}</p>
+                </div>
+                <div className="border-t pt-4">
+                  <p className="text-sm text-muted-foreground">Total</p>
+                  <p className="text-xl font-semibold">
+                    ${calculateTotalAmount(selectedOrder.order_items).toFixed(2)}
+                  </p>
+                </div>
+                <Button
+                  variant="default"
+                  className="w-full"
+                // Customize theme in tailwind.config.js to match image's brown color
+                >
+                  Process Order
+                </Button>
               </div>
             </div>
           )}
@@ -432,7 +581,6 @@ export default function OrderManager() {
             size="sm"
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
-            className="border-gray-300 hover:border-blue-500"
           >
             Previous
           </Button>
@@ -444,9 +592,8 @@ export default function OrderManager() {
             size="sm"
             onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
             disabled={currentPage === totalPages}
-            className="border-gray-300 hover:border-blue-500"
           >
-            Next
+            answeredNext
           </Button>
         </div>
       </div>
