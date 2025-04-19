@@ -4,14 +4,15 @@ import { MainLayout } from '@/components/layouts';
 import AdminPages from './modules/admin/pages/AdminPages';
 
 import HomePages from '@/modules/home/pages/HomePages';
-import AuthPages from './modules/auth/pages/AuthPages';
-import { RegisterForm } from './modules/auth/components/Register/RegisterForm';
-import LoginForm from './modules/auth/components/Login/LoginForm';
-import { ForgetPasswordForm } from './modules/auth/components/ForgetPassword/ForgetPasswordForm';
-import ComfirmPassword from './modules/auth/components/ForgetPassword/ComfirmPassword';
-import { SetNewPasswordForm } from './modules/auth/components/ForgetPassword/SetNewPasswordForm';
-import OrderManager from './modules/admin/components/Order/OrderManager';
+
+import OrderManager from './modules/admin/components/Order/components/OrderManager';
 import ProductManager from './modules/home/components/ProductTable/ProductManager';
+import AuthPages from './modules/Auth/pages/AuthPages';
+import LoginForm from './modules/Auth/components/Login/LoginForm';
+import { RegisterForm } from './modules/Auth/components/Register/RegisterForm';
+import { ForgetPasswordForm } from './modules/Auth/components/ForgetPassword/ForgetPasswordForm';
+import ComfirmPassword from './modules/Auth/components/ForgetPassword/ComfirmPassword';
+import { SetNewPasswordForm } from './modules/Auth/components/ForgetPassword/SetNewPasswordForm';
 
 function App() {
   const router = createBrowserRouter([
@@ -29,7 +30,6 @@ function App() {
           path: 'about',
           element: <h1>About</h1>,
         },
-
       ],
     },
     {
@@ -38,25 +38,25 @@ function App() {
       children: [
         {
           path: 'login',
-          element: <LoginForm />
+          element: <LoginForm />,
         },
         {
           path: 'register',
-          element: <RegisterForm />
+          element: <RegisterForm />,
         },
         {
           path: 'forget-password',
-          element: <ForgetPasswordForm />
+          element: <ForgetPasswordForm />,
         },
         {
           path: 'confirm-password',
-          element: <ComfirmPassword />
+          element: <ComfirmPassword />,
         },
         {
           path: 'new-password',
-          element: <SetNewPasswordForm />
-        }
-      ]
+          element: <SetNewPasswordForm />,
+        },
+      ],
     },
     // Admin layout
     {
@@ -65,13 +65,13 @@ function App() {
       children: [
         {
           path: 'products',
-          element: <ProductManager />
+          element: <ProductManager />,
         },
         {
           path: 'order',
-          element: <OrderManager />
+          element: <OrderManager />,
         },
-      ]
+      ],
     },
   ]);
   return (
